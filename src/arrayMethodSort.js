@@ -5,13 +5,11 @@
  */
 function applyCustomSort() {
   [].__proto__.sort2 = function (compareFunction) {
-    let conditionFunction = compareFunction;
-
-    if (!conditionFunction) {
-      conditionFunction = function (a, b) {
+    const conditionFunction =
+      compareFunction ||
+      function (a, b) {
         return String(a) > String(b) ? 1 : -1;
       };
-    }
 
     for (let i = 0; i < this.length; i++) {
       for (let j = i + 1; j < this.length; j++) {
@@ -20,8 +18,7 @@ function applyCustomSort() {
         const result = conditionFunction(a, b);
 
         if (result > 0) {
-          this[j] = a;
-          this[i] = b;
+          [this[i], this[j]] = [this[j], this[i]];
         }
       }
     }
