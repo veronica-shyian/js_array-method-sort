@@ -8,7 +8,14 @@ function applyCustomSort() {
     const conditionFunction =
       compareFunction ||
       function (a, b) {
-        return String(a) > String(b) ? 1 : -1;
+        const strA = String(a);
+        const strB = String(b);
+
+        if (strA === strB) {
+          return 0;
+        }
+
+        return strA > strB ? 1 : -1;
       };
 
     for (let i = 0; i < this.length; i++) {
